@@ -6,7 +6,7 @@ include "../helpers/functions.php";
 $user_data = check_login($con);
 
 if($_SERVER['REQUEST_METHOD'] == 'POST'){
-
+    //TODO: serverside insert if !empty location back to patients
 }
 ?>
 <html>
@@ -19,8 +19,9 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
     <body>
     <div class="row">
                     <form class="login-form" method="post">
-                        <input id="username" type="text" placeholder="Enter your username" name="username"/>
-                        <input id="password" type="password" placeholder="Enter your password" name="password"/>
+                        <input id="doctorName" type="text" placeholder="Enter doctor's name" name="doctorName"/>
+                        <input id="patientName" type="text" placeholder="Enter patient's name" name="patientName"/>
+                        <input id="disease" type="text" placeholder="Enter patient's disease" name="disease"/>
                         <button id="btnSubmit">Submit</button>              
                     </form>
     </body>
