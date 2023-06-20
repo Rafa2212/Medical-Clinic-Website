@@ -188,7 +188,7 @@ li{
   width: 20%;
   border-radius: 12px;
   overflow: hidden;
-  background: #3D3D3D;
+  background: #2A363F;
   padding: 9px;
   cursor: text;
 }
@@ -227,12 +227,12 @@ li{
 .search-label svg,
 .slash-icon {
   position: absolute;
-  color: #7e7e7e;
+  color: #2A363F;
 }
 
 .slash-icon {
   right: 7px;
-  border: 1px solid #393838;
+  border: 1px solid #2A363F;
   background: linear-gradient(-225deg, #343434, #6d6d6d);
   border-radius: 3px;
   text-align: center;
@@ -255,7 +255,7 @@ li{
   padding: 1em;
   margin-left: 10px;
   border: 0px solid transparent;
-  background-color: #393838;
+  background-color: #2A363F;
   border-radius: 1.25em;
   transition: all 0.2s linear;
  }
