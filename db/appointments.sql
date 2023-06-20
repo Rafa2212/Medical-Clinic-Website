@@ -2,10 +2,10 @@
 -- version 5.2.1
 -- https://www.phpmyadmin.net/
 --
--- Gazdă: db:3306
--- Timp de generare: iun. 08, 2023 la 11:11 AM
--- Versiune server: 8.0.33
--- Versiune PHP: 8.1.17
+-- Host: db:3306
+-- Generation Time: Jun 20, 2023 at 11:46 AM
+-- Server version: 8.0.33
+-- PHP Version: 8.1.17
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -18,13 +18,13 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Bază de date: `php_docker`
+-- Database: `php_docker`
 --
 
 -- --------------------------------------------------------
 
 --
--- Structură tabel pentru tabel `appointments`
+-- Table structure for table `appointments`
 --
 
 CREATE TABLE `appointments` (
@@ -34,24 +34,45 @@ CREATE TABLE `appointments` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
--- Indexuri pentru tabele eliminate
+-- Dumping data for table `appointments`
+--
+
+INSERT INTO `appointments` (`id`, `id_doctors`, `id_patients`) VALUES
+(1, 1, 2),
+(2, 2, 2),
+(3, 2, 3),
+(4, 4, 1),
+(5, 3, 2),
+(6, 1, 6),
+(7, 3, 7),
+(8, 3, 3),
+(9, 2, 5),
+(10, 4, 3),
+(11, 5, 2),
+(12, 5, 7),
+(13, 3, 2),
+(14, 6, 1),
+(15, 4, 2);
+
+--
+-- Indexes for dumped tables
 --
 
 --
--- Indexuri pentru tabele `appointments`
+-- Indexes for table `appointments`
 --
 ALTER TABLE `appointments`
   ADD PRIMARY KEY (`id`);
 
 --
--- AUTO_INCREMENT pentru tabele eliminate
+-- AUTO_INCREMENT for dumped tables
 --
 
 --
--- AUTO_INCREMENT pentru tabele `appointments`
+-- AUTO_INCREMENT for table `appointments`
 --
 ALTER TABLE `appointments`
-  MODIFY `id` bigint NOT NULL AUTO_INCREMENT;
+  MODIFY `id` bigint NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

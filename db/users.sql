@@ -2,10 +2,10 @@
 -- version 5.2.1
 -- https://www.phpmyadmin.net/
 --
--- Gazdă: db:3306
--- Timp de generare: iun. 08, 2023 la 11:12 AM
--- Versiune server: 8.0.33
--- Versiune PHP: 8.1.17
+-- Host: db:3306
+-- Generation Time: Jun 20, 2023 at 11:47 AM
+-- Server version: 8.0.33
+-- PHP Version: 8.1.17
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -18,13 +18,13 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Bază de date: `php_docker`
+-- Database: `php_docker`
 --
 
 -- --------------------------------------------------------
 
 --
--- Structură tabel pentru tabel `users`
+-- Table structure for table `users`
 --
 
 CREATE TABLE `users` (
@@ -36,29 +36,29 @@ CREATE TABLE `users` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
--- Eliminarea datelor din tabel `users`
+-- Dumping data for table `users`
 --
 
 INSERT INTO `users` (`id`, `user_id`, `username`, `password`, `date`) VALUES
 (1, 1, 'admin', '1234', '2023-06-07');
 
 --
--- Indexuri pentru tabele eliminate
+-- Indexes for dumped tables
 --
 
 --
--- Indexuri pentru tabele `users`
+-- Indexes for table `users`
 --
 ALTER TABLE `users`
   ADD PRIMARY KEY (`id`),
   ADD KEY `user_id` (`user_id`);
 
 --
--- AUTO_INCREMENT pentru tabele eliminate
+-- AUTO_INCREMENT for dumped tables
 --
 
 --
--- AUTO_INCREMENT pentru tabele `users`
+-- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
   MODIFY `id` bigint NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
