@@ -28,20 +28,22 @@
             {
                 if(isset($_POST['search']))
                 {
-                    $search = $_POST['text'];
+                    if(isset($_POST['text'])){
+                        $search = $_POST['text'];
 
-                    $sql = "SELECT patients.name, disease, COUNT(appointments.id) as appointments FROM patients
-                    inner join doctors on patients.id_doctors = doctors.id
-                    left join appointments on appointments.id_patients = patients.id
-                    where doctors.name like '%$search%'
-                    GROUP BY disease, patients.name";
-
-                    $sqlD = "SELECT doctors.name, 
-                    (select COUNT(*) from patients where id_doctors = doctors.id) as patients, 
-                    (select COUNT(*) from appointments where id_doctors = doctors.id) as appointments 
-                    FROM doctors
-                    where doctors.name like '%$search%'
-                    group by doctors.id limit 1";
+                        $sql = "SELECT patients.name, disease, COUNT(appointments.id) as appointments FROM patients
+                        inner join doctors on patients.id_doctors = doctors.id
+                        left join appointments on appointments.id_patients = patients.id
+                        where doctors.name like '%$search%'
+                        GROUP BY disease, patients.name";
+    
+                        $sqlD = "SELECT doctors.name, 
+                        (select COUNT(*) from patients where id_doctors = doctors.id) as patients, 
+                        (select COUNT(*) from appointments where id_doctors = doctors.id) as appointments 
+                        FROM doctors
+                        where doctors.name like '%$search%'
+                        group by doctors.id limit 1";
+                    }
                 }
                 if(isset($_POST['add']))
                 {
