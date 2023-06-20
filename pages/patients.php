@@ -62,7 +62,7 @@
 <html lang="en">
     <head>
         <meta charset="utf-8" />
-        <title>Reports</title>
+        <title>Patients</title>
         <link href="../assets/style/main.css" rel="stylesheet" />
         <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.2/Chart.min.js"></script>
     </head>
@@ -139,11 +139,10 @@ var tableArr = [];
 var tableLab = [];
 for ( var i = 1; i < table.rows.length; i++ ) {
     tableArr.push([
-     table.rows[i].cells[0].innerHTML,
      table.rows[i].cells[1].innerHTML,
-     table.rows[i].cells[2].innerHTML,
+     table.rows[i].cells[2].innerHTML
     ]);
-tableLab.push(table.rows[0].cells[1].innerHTML)
+tableLab.push(table.rows[i].cells[0].innerHTML)
 var canvas = document.createElement("canvas");
 canvas.setAttribute("id", "myChart"+i);
 table.rows[i].cells[3].appendChild(canvas);
@@ -156,7 +155,7 @@ tableArr.forEach(function(e,i){
   var myChart = new Chart(ctx, {
     type: 'bar',
     data: {
-        labels: ["Patients", "Appointments"],
+        labels: ["Appointments", "Patients"],
         datasets: [{
             label: tableLab[i],
             data: e,
@@ -184,8 +183,20 @@ tableArr.forEach(function(e,i){
         scales: {
             yAxes: [{
                 ticks: {
-                    beginAtZero:true
+                    beginAtZero:true,
+                    min: 0,
+                    max: 7,
+                    fontColor: "black"
                 }
+            }],
+            xAxes: [{
+                ticks: {
+                    beginAtZero:true,
+                    min: 0,
+                    max: 7,
+                    fontColor: "black"
+                },
+                
             }]
         }
     }
