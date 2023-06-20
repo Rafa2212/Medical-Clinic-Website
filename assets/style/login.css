@@ -1,0 +1,151 @@
+@import url('https://fonts.googleapis.com/css2?family=Cairo+Play:wght@600&display=swap');
+
+* {
+    font-family: 'Cairo Play', sans-serif;
+}
+html{
+    height: 100%;
+}
+body {
+    min-height: 100%;
+    margin: 0;
+    background-color: #386D84;
+}
+
+@media only screen and (max-width: 1028px) {
+    *{
+        font-size: 23px;
+    }
+    #img{
+        width: 700px;
+    }
+}
+
+#dialog{
+    color: white;
+    border-color: #2C363E;
+    background-color: #2C363E;
+    text-align: center;
+    padding-top: 150px;
+    border-radius: 20px;
+    margin-top: 200px;
+    width: 40%;
+    height: 20%;
+    transition: all 0.2s ease;
+}
+
+::placeholder {
+    color: white;
+    opacity: 1;
+}
+#btnClose{
+    position: absolute;
+    top: 0;
+    left: 0;
+    margin-right: 10px;
+    margin-top: 10px;
+    border: none;
+    background: none;
+    color: white;
+    font-size: 20px;
+    cursor: pointer;
+}
+
+#img{
+    width: 350px;
+}
+
+.row {
+    width: 100%;
+    display: flex;
+    flex-direction:  column;
+    align-items: center;
+    justify-content: center;
+}
+
+.login-form {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+
+input {
+    border: 1px solid whitesmoke;
+    background: transparent;
+    padding: 10px 30px 10px 30px;
+    border-radius: 10px;
+    color: white;
+    margin-top: 20px;
+}
+
+.branding {
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    align-items: center;
+    margin-top: 10px;
+}
+
+.title{
+    margin-bottom: 10px;
+    font-size: 25px;
+}
+
+.cta {
+    position: relative;
+    margin-top: 20px;
+    padding: 12px 18px;
+    transition: all 0.2s ease;
+    border: none;
+    background: none;
+   }
+   
+   .cta:before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    display: block;
+    border-radius: 50px;
+    background: #b1dae7;
+    width: 45px;
+    height: 45px;
+    transition: all 0.3s ease;
+   }
+   
+   .cta span {
+    position: relative;
+    font-size: 15px;
+    font-weight: 700;
+    letter-spacing: 0.05em;
+    color: #234567;
+   }
+   
+   .cta svg {
+    position: relative;
+    top: 0;
+    margin-left: 10px;
+    fill: none;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    stroke: #234567;
+    stroke-width: 2;
+    transform: translateX(-5px);
+    transition: all 0.3s ease;
+   }
+   
+   .cta:hover:before {
+    width: 100%;
+    background: #b1dae7;
+    background-image: url(report.);
+   }
+   
+   .cta:hover svg {
+    transform: translateX(0);
+   }
+   
+   .cta:active {
+    transform: scale(0.95);
+   }
