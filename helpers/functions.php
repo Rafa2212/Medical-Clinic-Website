@@ -29,16 +29,3 @@ function random_num($length)
     }
 return $text;
 }
-function addPatient($con){
-    //TODO: add patient to database
-    if(isset($_SESSION['patientName']) && isset($_SESSION['doctorName']) && isset($_SESSION['disease']))
-    {
-        $patient = $_SESSION['patientName'];
-        $doctor = $_SESSION['doctorName'];
-        $disease = $_SESSION['disease'];
-        $sql = "select id from doctors where doctors.name='$doctor' limit 1";
-        $doctor_id = mysqli_query($con, $sql);
-        $query = "insert into patients (id_doctors,name,disease) values ('$doctor_id','$patient','$disease')";
-        $result = mysqli_query($con, $query);
-    }
-}
