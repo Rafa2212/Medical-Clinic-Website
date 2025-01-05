@@ -377,35 +377,16 @@ td {
 
 th {
 	text-align: left;
+	background-color: #55608f;
 }
 
-thead {
-	th {
-		background-color: #55608f;
-	}
+/* Remove all hover effects and animations */
+tbody tr {
+	background-color: rgba(255,255,255,0.1);
 }
 
-tbody {
-	tr {
-		&:hover {
-			background-color: rgba(255,255,255,0.3);
-		}
-	}
-	td {
-		position: relative;
-		&:hover {
-			&:before {
-				content: "";
-				position: absolute;
-				left: 0;
-				right: 0;
-				top: -9999px;
-				bottom: -9999px;
-				background-color: rgba(255,255,255,0.2);
-				z-index: -1;
-			}
-		}
-	}
+tbody td {
+	position: relative;
 }
 .patients{
   width: 30%;
