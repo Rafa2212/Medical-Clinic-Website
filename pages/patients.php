@@ -7,11 +7,24 @@
             $doctor_id = $_SESSION['doctor_id'];
             if($doctor_id != 0)
             {
-                $sql = "SELECT patients.name, disease, COUNT(appointments.id) as appointments FROM patients
-                inner join doctors on patients.id_doctors = doctors.id
-                left join appointments on appointments.patient_id = patients.id
-                where doctors.id = '$doctor_id'
-                GROUP BY disease, patients.name";
+                $sql = "SELECT 
+                    patients.name as patient_name, 
+                    disease, 
+                    COUNT(DISTINCT appointments.id) as appointments,
+                    GROUP_CONCAT(
+                        CONCAT(
+                            DATE_FORMAT(appointments.appointment_date, '%Y-%m-%d %H:%i'), 
+                            ': ', 
+                            appointments.reason
+                        ) 
+                        ORDER BY appointments.appointment_date ASC
+                        SEPARATOR '<br>'
+                    ) as appointment_details
+                FROM patients
+                INNER JOIN doctors ON patients.id_doctors = doctors.id
+                LEFT JOIN appointments ON appointments.patient_id = patients.id
+                WHERE doctors.id = '$doctor_id'
+                GROUP BY patients.id, disease, patients.name";
                 
                 $sqlD = "SELECT doctors.name, 
                         (select COUNT(*) from patients where id_doctors = doctors.id) as patients, 
@@ -97,12 +110,12 @@
                 <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="20" height="20" viewBox="0 0 50 50">
                     <path d="M 21 3 C 11.601563 3 4 10.601563 4 20 C 4 29.398438 11.601563 37 21 37 C 24.355469 37 27.460938 36.015625 30.09375 34.34375 L 42.375 46.625 L 46.625 42.375 L 34.5 30.28125 C 36.679688 27.421875 38 23.878906 38 20 C 38 10.601563 30.398438 3 21 3 Z M 21 7 C 28.199219 7 34 12.800781 34 20 C 34 27.199219 28.199219 33 21 33 C 13.800781 33 8 27.199219 8 20 C 8 12.800781 13.800781 7 21 7 Z"></path>
                 </svg>
-                    <span class="tooltiptext">search</span>
+                    <span class="tooltiptext">Search</span>
                 </button>
                 </form>
             <button name='add' id="search" class="tooltip">
                 <img src="../assets/images/fd_pacienti.png" width='25px'>
-                <span class="tooltiptext">add</span>
+                <span class="tooltiptext">Add patient</span>
             </button>
             </div>
             <div class='tables'>
@@ -112,11 +125,13 @@
                 <th>Name</th>
                 <th>Disease</th>
                 <th>Number of Appointments</th>
+                <th>Appointment Details</th>
                <?php while ($row = mysqli_fetch_array($pQuery)) {?>
                    <tr>
-                   <td><?php echo $row['name'];?></td>
+                   <td><?php echo $row['patient_name'];?></td>
                    <td><?php echo $row['disease'];?></td>
                    <td><?php echo $row['appointments'];?></td>
+                   <td><?php echo $row['appointment_details'] ? $row['appointment_details'] : 'No appointments';?></td>
                    </tr>            
               <?php  } }?> </table>
             <?php

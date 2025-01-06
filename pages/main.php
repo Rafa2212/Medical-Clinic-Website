@@ -79,13 +79,13 @@ session_start();
                 </li>
             </ul>
             
-            <div class="add-doctor-container">
+            <div class="container">
               <form method="post">
-                <button name='addDoctor' id="search" style="margin-left: auto; margin-right: auto;" class="tooltip">
+                <button name='addDoctor' id="search" class="tooltip">
                     <img src="../assets/images/fd_pacienti.png" width='25px'>
                     <span class="tooltiptext">Add doctor</span>
                 </button>
-                <button name='addAppointment' id="search" style="margin-left: auto; margin-right: auto;" class="tooltip">
+                <button name='addAppointment' id="search" class="tooltip">
                     <img src="../assets/images/fd_pacienti.png" width='25px'>
                     <span class="tooltiptext">Add appointment</span>
                 </button>

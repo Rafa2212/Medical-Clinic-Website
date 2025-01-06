@@ -7,11 +7,6 @@ $user_data = check_login($con);
 $user_id = $_SESSION['user_id'];
 // Get doctors for current user
 $doctors_query = mysqli_query($con, "SELECT * FROM doctors WHERE user_id = '$user_id'");
-// Get all patients
-$patients_query = mysqli_query($con, "SELECT p.*, d.name as doctor_name 
-                                    FROM patients p 
-                                    JOIN doctors d ON p.id_doctors = d.id 
-                                    WHERE d.user_id = '$user_id'");
 
 if($_SERVER['REQUEST_METHOD'] == 'POST'){
     $doctor_id = $_POST['doctor_id'];
@@ -25,7 +20,8 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
         mysqli_stmt_bind_param($stmt, "iiss", $doctor_id, $patient_id, $reason, $appointment_date);
         
         if(mysqli_stmt_execute($stmt)){
-            header("Location: main.php");
+            $_SESSION['doctor_id'] = $doctor_id; // Set the doctor_id for patients.php
+            header("Location: patients.php");
             die;
         }
     } else {
@@ -71,12 +67,32 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
                 }
                 return true;
             }
+
+            function updatePatients() {
+                const doctorId = document.getElementById("doctor_id").value;
+                const patientSelect = document.getElementById("patient_id");
+                
+                patientSelect.innerHTML = '<option value="">Select Patient</option>';
+                
+                if(doctorId) {
+                    fetch(`get_patients.php?doctor_id=${doctorId}`)
+                        .then(response => response.json())
+                        .then(patients => {
+                            patients.forEach(patient => {
+                                const option = document.createElement('option');
+                                option.value = patient.id;
+                                option.textContent = patient.name;
+                                patientSelect.appendChild(option);
+                            });
+                        });
+                }
+            }
         </script>
     </head>
     <body>
         <div id="pRow" class="row">
             <form class="login-form" method="post" onsubmit="return validateForm()">
-                <select class="input" id="doctor_id" name="doctor_id">
+                <select class="input" id="doctor_id" name="doctor_id" onchange="updatePatients()">
                     <option value="">Select Doctor</option>
                     <?php while($doctor = mysqli_fetch_assoc($doctors_query)): ?>
                         <option value="<?php echo $doctor['id']; ?>">
@@ -87,11 +103,6 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
 
                 <select class="input" id="patient_id" name="patient_id">
                     <option value="">Select Patient</option>
-                    <?php while($patient = mysqli_fetch_assoc($patients_query)): ?>
-                        <option value="<?php echo $patient['id']; ?>">
-                            <?php echo htmlspecialchars($patient['name']) . ' (Dr. ' . htmlspecialchars($patient['doctor_name']) . ')'; ?>
-                        </option>
-                    <?php endwhile; ?>
                 </select>
 
                 <input class="input" type="datetime-local" id="appointment_date" name="appointment_date"/>

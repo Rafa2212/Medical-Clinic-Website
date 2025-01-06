@@ -5,29 +5,23 @@ include "../helpers/connections.php";
 include "../helpers/functions.php";
 $user_data = check_login($con);
 
+$user_id = $_SESSION['user_id'];
+// Get doctors for current user
+$doctors_query = mysqli_query($con, "SELECT * FROM doctors WHERE user_id = '$user_id'");
+
 if($_SERVER['REQUEST_METHOD'] == 'POST'){
-    $doctorName = $_POST['doctorName'];
+    $doctor_id = $_POST['doctor_id'];
     $patientName = $_POST['patientName'];
     $disease = $_POST['disease'];
     
-    if(!empty($doctorName) && !empty($patientName) && !empty($disease)){
-        $doctor_query = mysqli_query($con,"SELECT * FROM doctors WHERE name = '$doctorName' limit 1");
-        $doctor_id = null;
-        if($doctor_query && mysqli_num_rows($doctor_query) > 0){
-            $doctor = mysqli_fetch_assoc($doctor_query);
-            $doctor_id = $doctor['id'];
-            
-            $query = "INSERT INTO patients (id_doctors, name, disease) VALUES ('$doctor_id', '$patientName', '$disease')";
-            mysqli_query($con, $query);
+    if(!empty($doctor_id) && !empty($patientName) && !empty($disease)){
+        $query = "INSERT INTO patients (id_doctors, name, disease) VALUES (?, ?, ?)";
+        $stmt = mysqli_prepare($con, $query);
+        mysqli_stmt_bind_param($stmt, "iss", $doctor_id, $patientName, $disease);
+        
+        if(mysqli_stmt_execute($stmt)){
             header("Location: patients.php");
             die;
-        } else {
-            echo "<dialog id='dialog'>
-                <form method='dialog'>
-                Doctor not found!
-                <button id='btnClose'>Close</button>
-                </form>
-                </dialog>";
         }
     } else {
         echo "<dialog id='dialog'>
@@ -39,6 +33,7 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
     }
 }
 ?>
+
 <html>
     <head>
         <meta charset="utf-8" />
@@ -61,11 +56,11 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
             }
 
             function validateForm() {
-                var doctorName = document.getElementById("doctorName").value;
+                var doctor = document.getElementById("doctor_id").value;
                 var patientName = document.getElementById("patientName").value;
                 var disease = document.getElementById("disease").value;
                 
-                if (doctorName == "" || patientName == "" || disease == "") {
+                if (doctor == "" || patientName == "" || disease == "") {
                     return false;
                 }
                 return true;
@@ -75,7 +70,14 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
     <body>
         <div id="pRow" class="row">
             <form class="login-form" method="post" onsubmit="return validateForm()">
-                <input class="input" id="doctorName" type="text" placeholder="Enter doctor's full name" name="doctorName"/>
+                <select class="input" id="doctor_id" name="doctor_id">
+                    <option value="">Select Doctor</option>
+                    <?php while($doctor = mysqli_fetch_assoc($doctors_query)): ?>
+                        <option value="<?php echo $doctor['id']; ?>">
+                            <?php echo htmlspecialchars($doctor['name']); ?>
+                        </option>
+                    <?php endwhile; ?>
+                </select>
                 <input class="input" id="patientName" type="text" placeholder="Enter patient's name" name="patientName"/>
                 <input class="input" id="disease" type="text" placeholder="Enter patient's disease" name="disease"/>
                 <button id="btnSubmit">Submit</button>              
