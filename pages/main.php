@@ -65,12 +65,10 @@ session_start();
             
             <div class="add-doctor-container">
                 <form method="post">
-                    <button name="addDoctor" class="add-doctor-btn">
-                        <span>Add New Doctor</span>
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <path d="M12 5v14M5 12h14"/>
-                        </svg>
-                    </button>
+                    <div class="tooltip">
+                        <button name="addDoctor" id="add">+</button>
+                        <span class="tooltiptext">Add Doctor</span>
+                    </div>
                 </form>
             </div>
 
