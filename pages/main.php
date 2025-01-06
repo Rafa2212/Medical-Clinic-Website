@@ -19,6 +19,18 @@ session_start();
         header("Location: addDoctor.php");
         die;
     }
+    // Handle doctor deletion
+    foreach($_POST as $key => $value) {
+        if(strpos($key, 'delete_') === 0) {
+            $doctor_id = substr($key, 7); // Remove 'delete_' prefix
+            $delete_query = "DELETE FROM doctors WHERE id = ? AND user_id = ?";
+            $stmt = mysqli_prepare($con, $delete_query);
+            mysqli_stmt_bind_param($stmt, "ii", $doctor_id, $user_id);
+            mysqli_stmt_execute($stmt);
+            header("Location: main.php");
+            die;
+        }
+    }
     // Only loop through the user's doctors
     while($doctor = mysqli_fetch_assoc($doctors_query)) {
         if(isset($_POST['btn' . $doctor['id']]))
@@ -67,7 +79,7 @@ session_start();
               <form method="post">
                 <button name='addDoctor' id="search" style="margin-left: auto; margin-right: auto;" class="tooltip">
                     <img src="../assets/images/fd_pacienti.png" width='25px'>
-                    <span class="tooltiptext">Add new doctor</span>
+                    <span class="tooltiptext">Add doctor</span>
                 </button>
               </form>
             </div>
@@ -81,6 +93,9 @@ session_start();
                     $id = $doctor['id'];
                 ?>
                     <div class="card" onmouseover="notHidden(<?php echo $id; ?>)" onmouseout="hide(<?php echo $id; ?>)">
+                        <div class="delete-container">
+                            <button type="submit" name="delete_<?php echo $id; ?>" class="delete-btn">✕</button>
+                        </div>
                         <div class="card-info">
                             <div id="cardAvtr<?php echo $id; ?>" class="card-avatar"></div>
                             <div id="cardTitle<?php echo $id; ?>" class="card-title"><?php echo htmlspecialchars($doctor['name']); ?></div>

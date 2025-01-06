@@ -107,6 +107,7 @@ li{
     margin-top: 20px;
     padding: 2rem 1.5rem;
     transition: box-shadow .3s ease, transform .2s ease;
+    position: relative;
    }
    
    .card-info {
@@ -406,4 +407,36 @@ tbody td {
   justify-content: center;
   align-items: center;
   padding-bottom: 150px;
+}
+
+.delete-container {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    z-index: 1;
+}
+
+.delete-btn {
+    background: none;
+    border: none;
+    color: #ff0000;
+    font-size: 18px;
+    cursor: pointer;
+    padding: 5px;
+    width: 24px;
+    height: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0.6;
+    transition: opacity 0.2s ease;
+}
+
+.delete-btn:hover {
+    opacity: 1;
+}
+
+.card {
+    position: relative;
+    /* ... existing card styles ... */
 }
