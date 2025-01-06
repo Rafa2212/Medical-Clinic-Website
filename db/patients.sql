@@ -28,10 +28,12 @@ SET time_zone = "+00:00";
 --
 
 CREATE TABLE `patients` (
-  `id` int NOT NULL,
+  `id` int NOT NULL AUTO_INCREMENT,
   `id_doctors` int NOT NULL,
   `name` varchar(40) NOT NULL,
-  `disease` varchar(150) NOT NULL
+  `disease` varchar(150) NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `id_doctors` (`id_doctors`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --

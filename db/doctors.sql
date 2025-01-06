@@ -28,21 +28,26 @@ SET time_zone = "+00:00";
 --
 
 CREATE TABLE `doctors` (
-  `id` bigint NOT NULL,
+  `id` bigint NOT NULL AUTO_INCREMENT,
+  `user_id` bigint NOT NULL,
   `name` varchar(20) NOT NULL,
-  `description` varchar(300) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL
+  `profession` varchar(50) NOT NULL,
+  `description` varchar(300) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `user_id` (`user_id`),
+  CONSTRAINT `doctors_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `users` (`user_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
 -- Dumping data for table `doctors`
 --
 
-INSERT INTO `doctors` (`id`, `name`, `description`) VALUES
-(1, 'Andrei Popescu', 'Dr. Andrei Popescu is a compassionate and highly skilled physician dedicated to providing exceptional medical care to her patients. With over 15 years of experience, Dr. Popescu is board-certified in internal medicine and has a deep understanding of the complexities of the human body.'),
-(2, 'Mihai Ionescu', 'Dr. Mihai Ionescu is a highly experienced and dedicated physician known for his exceptional expertise in orthopedic surgery. With a career spanning over two decades, Dr. Ionescu has become a trusted name in his field, renowned for his surgical skills and compassionate patient care.'),
-(3, 'Andrei Mihaescu', 'Dr. Andrei Mihaescu is a highly skilled and compassionate cardiologist dedicated to the diagnosis and treatment of cardiovascular diseases. With a strong background in cardiology, Dr. Mihaescu has established himself as a respected authority in the field.'),
-(4, 'Elena Voda', 'Dr. Elena Voda is a highly compassionate and experienced pediatrician dedicated to providing comprehensive care to infants, children, and adolescents. With a genuine love for working with young patients, Dr. Voda creates a warm and welcoming environment where children feel comfortable.'),
-(5, 'Elena Popescu', 'Dr. Elena Popescu is a highly skilled and compassionate obstetrician-gynecologist committed to providing women\'s healthcare. With a focus on the unique needs of women throughout their reproductive years, Dr. Popescu offers personalized care in a comfortable environment.');
+INSERT INTO `doctors` (`user_id`, `name`, `profession`, `description`) VALUES
+(1, 'Andrei Popescu', 'Internal Medicine', 'Dr. Andrei Popescu is a compassionate and highly skilled physician dedicated to providing exceptional medical care to her patients. With over 15 years of experience, Dr. Popescu is board-certified in internal medicine and has a deep understanding of the complexities of the human body.'),
+(1, 'Mihai Ionescu', 'Orthopedic Surgery', 'Dr. Mihai Ionescu is a highly experienced and dedicated physician known for his exceptional expertise in orthopedic surgery. With a career spanning over two decades, Dr. Ionescu has become a trusted name in his field, renowned for his surgical skills and compassionate patient care.'),
+(1, 'Andrei Mihaescu', 'Cardiology', 'Dr. Andrei Mihaescu is a highly skilled and compassionate cardiologist dedicated to the diagnosis and treatment of cardiovascular diseases. With a strong background in cardiology, Dr. Mihaescu has established himself as a respected authority in the field.'),
+(1, 'Elena Voda', 'Pediatrics', 'Dr. Elena Voda is a highly compassionate and experienced pediatrician dedicated to providing comprehensive care to infants, children, and adolescents. With a genuine love for working with young patients, Dr. Voda creates a warm and welcoming environment where children feel comfortable.'),
+(1, 'Elena Popescu', 'Obstetrics & Gynecology', 'Dr. Elena Popescu is a highly skilled and compassionate obstetrician-gynecologist committed to providing women\'s healthcare. With a focus on the unique needs of women throughout their reproductive years, Dr. Popescu offers personalized care in a comfortable environment.');
 
 --
 -- Indexes for dumped tables
