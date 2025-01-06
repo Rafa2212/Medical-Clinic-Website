@@ -91,7 +91,7 @@ li{
     justify-content: center;
     align-items: center;
     margin-top: 30px;
-    padding-bottom: 110px;
+    padding-bottom: 70px;
   }
 
   .card {
@@ -438,5 +438,16 @@ tbody td {
 
 .card {
     position: relative;
-    /* ... existing card styles ... */
+}
+
+.add-buttons-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 200px;
+    gap: 20px;
+}
+
+.add-form {
+    display: inline-block;
 }

@@ -41,33 +41,73 @@
             {
                 if(isset($_POST['search']))
                 {
-                    if(isset($_POST['text'])){
-                        $search = $_POST['text'];
+                    if(isset($_POST['text']) && !empty(trim($_POST['text']))){
+                        $search = trim($_POST['text']);
 
-                        $sql = "SELECT patients.name, disease, COUNT(appointments.id) as appointments FROM patients
-                        inner join doctors on patients.id_doctors = doctors.id
-                        left join appointments on appointments.patient_id = patients.id
-                        where doctors.name like '%$search%'
-                        GROUP BY disease, patients.name";
-    
+                        $sql = "SELECT 
+                            patients.name as patient_name, 
+                            disease, 
+                            COUNT(DISTINCT appointments.id) as appointments,
+                            GROUP_CONCAT(
+                                CONCAT(
+                                    DATE_FORMAT(appointments.appointment_date, '%Y-%m-%d %H:%i'), 
+                                    ': ', 
+                                    appointments.reason
+                                ) 
+                                ORDER BY appointments.appointment_date ASC
+                                SEPARATOR '<br>'
+                            ) as appointment_details
+                            FROM patients
+                            INNER JOIN doctors ON patients.id_doctors = doctors.id
+                            LEFT JOIN appointments ON appointments.patient_id = patients.id
+                            WHERE doctors.name LIKE ?
+                            GROUP BY patients.id, disease, patients.name";
+
                         $sqlD = "SELECT doctors.name, 
-                        (select COUNT(*) from patients where id_doctors = doctors.id) as patients, 
-                        (select COUNT(*) from appointments where doctor_id = doctors.id) as appointments 
-                        FROM doctors
-                        where doctors.name like '%$search%'
-                        group by doctors.id limit 1";
+                                (SELECT COUNT(*) FROM patients WHERE id_doctors = doctors.id) as patients, 
+                                (SELECT COUNT(*) FROM appointments WHERE doctor_id = doctors.id) as appointments 
+                                FROM doctors
+                                WHERE doctors.name LIKE ?
+                                GROUP BY doctors.id LIMIT 1";
+
+                        // Prepare and execute patients query
+                        $stmt = mysqli_prepare($con, $sql);
+                        $search_param = "%$search%";
+                        mysqli_stmt_bind_param($stmt, "s", $search_param);
+                        mysqli_stmt_execute($stmt);
+                        $pQuery = mysqli_stmt_get_result($stmt);
+                        mysqli_stmt_close($stmt);
+
+                        // Prepare and execute doctors query
+                        $stmt = mysqli_prepare($con, $sqlD);
+                        mysqli_stmt_bind_param($stmt, "s", $search_param);
+                        mysqli_stmt_execute($stmt);
+                        $dQuery = mysqli_stmt_get_result($stmt);
+                        mysqli_stmt_close($stmt);
+
+                    } else {
+                        echo "<dialog id='dialog'>
+                            <form method='dialog'>
+                            Please enter a doctor name to search!
+                            <button id='btnClose'>Close</button>
+                            </form>
+                            </dialog>";
                     }
                 }
                 if(isset($_POST['add']))
                 {
                     header("Location: addPatient.php");
                 }
+                if(isset($_POST['addAppointment'])) {
+                    header("Location: addAppointment.php");
+                    die;
+                }
             }
-            if(!empty($sql)){
+            if(!isset($pQuery) && !empty($sql)){
                 $pQuery = mysqli_query($con, $sql);
             }
             
-            if(!empty($sqlD)){
+            if(!isset($dQuery) && !empty($sqlD)){
                 $dQuery = mysqli_query($con, $sqlD);
             }
 
@@ -117,6 +157,10 @@
                 <img src="../assets/images/fd_pacienti.png" width='25px'>
                 <span class="tooltiptext">Add patient</span>
             </button>
+            <button name='addAppointment' id="search" class="tooltip">
+                    <img src="../assets/images/addAppointment.png" width='25px'>
+                    <span class="tooltiptext">Add appointment</span>
+                </button>
             </div>
             <div class='tables'>
             <?php

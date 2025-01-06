@@ -79,18 +79,18 @@ session_start();
                 </li>
             </ul>
             
-            <div class="container">
-              <form method="post">
-                <button name='addDoctor' id="search" class="tooltip">
-                    <img src="../assets/images/fd_pacienti.png" width='25px'>
-                    <span class="tooltiptext">Add doctor</span>
-                </button>
-                <button name='addAppointment' id="search" class="tooltip">
-                    <img src="../assets/images/fd_pacienti.png" width='25px'>
-                    <span class="tooltiptext">Add appointment</span>
-                </button>
-              </form>
-            </div>
+            <form method="post">
+              <div class="container">
+                  <button name='addDoctor' id="search" class="tooltip">
+                      <img src="../assets/images/fd_pacienti.png" width='25px'>
+                      <span class="tooltiptext">Add doctor</span>
+                  </button>
+                  <button name='addAppointment' id="search" class="tooltip">
+                      <img src="../assets/images/addAppointment.png" width='25px'>
+                      <span class="tooltiptext">Add appointment</span>
+                  </button>
+              </div>
+            </form>
 
             <form method='post'>
             <div class = "container">
