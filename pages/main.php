@@ -15,6 +15,10 @@ session_start();
       $_SESSION['doctor_id'] = "0";
       header("Location: patients.php");
     }
+    if(isset($_POST['addDoctor'])) {
+        header("Location: addDoctor.php");
+        die;
+    }
     // Only loop through the user's doctors
     while($doctor = mysqli_fetch_assoc($doctors_query)) {
         if(isset($_POST['btn' . $doctor['id']]))
@@ -58,10 +62,24 @@ session_start();
                     <button class="navbar" onclick="document.location='logout.php'">Log out</button>
                 </li>
             </ul>
+            
+            <div class="add-doctor-container">
+                <form method="post">
+                    <button name="addDoctor" class="add-doctor-btn">
+                        <span>Add New Doctor</span>
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M12 5v14M5 12h14"/>
+                        </svg>
+                    </button>
+                </form>
+            </div>
+
             <form method='post'>
             <div class = "container">
                 <?php 
+                $has_doctors = false;
                 while($doctor = mysqli_fetch_assoc($doctors_query)) { 
+                    $has_doctors = true;
                     $id = $doctor['id'];
                 ?>
                     <div class="card" onmouseover="notHidden(<?php echo $id; ?>)" onmouseout="hide(<?php echo $id; ?>)">
@@ -81,7 +99,11 @@ session_start();
                             </li>
                         </ul>
                     </div>
-                <?php } ?>
+                <?php } 
+                if (!$has_doctors) {
+                    echo '<div class="no-doctors">No doctors added yet</div>';
+                }
+                ?>
             </div>
 </div>
 </form>
