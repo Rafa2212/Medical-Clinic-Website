@@ -5,7 +5,6 @@ session_start();
   include "../helpers/functions.php";
   $user_data = check_login($con);
   
-  // Get only doctors for the current user
   $user_id = $_SESSION['user_id'];
   $doctors_query = mysqli_query($con, "SELECT * FROM doctors WHERE user_id = '$user_id'");
   
@@ -23,7 +22,7 @@ session_start();
         header("Location: addAppointment.php");
         die;
     }
-    // Handle doctor deletion
+
     foreach($_POST as $key => $value) {
         if(strpos($key, 'delete_') === 0) {
             $doctor_id = substr($key, 7); // Remove 'delete_' prefix
@@ -35,7 +34,7 @@ session_start();
             die;
         }
     }
-    // Only loop through the user's doctors
+
     while($doctor = mysqli_fetch_assoc($doctors_query)) {
         if(isset($_POST['btn' . $doctor['id']]))
         {
@@ -45,7 +44,6 @@ session_start();
     }
   }
   
-  // Reset the result pointer to beginning for the HTML loop
   mysqli_data_seek($doctors_query, 0);
 ?>
 

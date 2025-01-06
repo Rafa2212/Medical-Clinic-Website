@@ -6,7 +6,6 @@ include "../helpers/functions.php";
 $user_data = check_login($con);
 
 $user_id = $_SESSION['user_id'];
-// Get doctors for current user
 $doctors_query = mysqli_query($con, "SELECT * FROM doctors WHERE user_id = '$user_id'");
 
 if($_SERVER['REQUEST_METHOD'] == 'POST'){

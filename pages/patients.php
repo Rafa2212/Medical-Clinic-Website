@@ -70,7 +70,6 @@
                                 WHERE doctors.name LIKE ?
                                 GROUP BY doctors.id LIMIT 1";
 
-                        // Prepare and execute patients query
                         $stmt = mysqli_prepare($con, $sql);
                         $search_param = "%$search%";
                         mysqli_stmt_bind_param($stmt, "s", $search_param);
@@ -78,7 +77,6 @@
                         $pQuery = mysqli_stmt_get_result($stmt);
                         mysqli_stmt_close($stmt);
 
-                        // Prepare and execute doctors query
                         $stmt = mysqli_prepare($con, $sqlD);
                         mysqli_stmt_bind_param($stmt, "s", $search_param);
                         mysqli_stmt_execute($stmt);

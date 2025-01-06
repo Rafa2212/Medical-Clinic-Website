@@ -11,7 +11,6 @@
         if(!empty($username) && !empty($password))
         {
             if(isset($_POST['sign-up'])) {
-                // Check if user already exists
                 $check_query = "SELECT * FROM users WHERE username = ? LIMIT 1";
                 $stmt = mysqli_prepare($con, $check_query);
                 mysqli_stmt_bind_param($stmt, "s", $username);
@@ -26,7 +25,6 @@
                     </form>
                     </dialog>";
                 } else {
-                    // Create new user
                     $user_id = random_num(20);
                     $date = date("Y-m-d H:i:s");
                     $query = "INSERT INTO users (user_id, username, password, date) VALUES (?, ?, ?, ?)";
@@ -40,7 +38,6 @@
                     }
                 }
             } else if(isset($_POST['sign-in'])) {
-                // Login logic
                 $query = "SELECT * FROM users WHERE username = ? LIMIT 1";
                 $stmt = mysqli_prepare($con, $query);
                 mysqli_stmt_bind_param($stmt, "s", $username);
