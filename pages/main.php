@@ -19,6 +19,10 @@ session_start();
         header("Location: addDoctor.php");
         die;
     }
+    if(isset($_POST['addAppointment'])) {
+        header("Location: addAppointment.php");
+        die;
+    }
     // Handle doctor deletion
     foreach($_POST as $key => $value) {
         if(strpos($key, 'delete_') === 0) {
@@ -81,6 +85,10 @@ session_start();
                     <img src="../assets/images/fd_pacienti.png" width='25px'>
                     <span class="tooltiptext">Add doctor</span>
                 </button>
+                <button name='addAppointment' id="search" style="margin-left: auto; margin-right: auto;" class="tooltip">
+                    <img src="../assets/images/fd_pacienti.png" width='25px'>
+                    <span class="tooltiptext">Add appointment</span>
+                </button>
               </form>
             </div>
 
@@ -94,7 +102,7 @@ session_start();
                 ?>
                     <div class="card" onmouseover="notHidden(<?php echo $id; ?>)" onmouseout="hide(<?php echo $id; ?>)">
                         <div class="delete-container">
-                            <button type="submit" name="delete_<?php echo $id; ?>" class="delete-btn">✕</button>
+                            <button type="submit" name="delete_<?php echo $id; ?>" class="delete-btn">×</button>
                         </div>
                         <div class="card-info">
                             <div id="cardAvtr<?php echo $id; ?>" class="card-avatar"></div>
