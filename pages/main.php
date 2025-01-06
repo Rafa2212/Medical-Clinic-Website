@@ -64,10 +64,12 @@ session_start();
             </ul>
             
             <div class="add-doctor-container">
-              <button name='add' id="search" class="tooltip">
-                  <img src="../assets/images/fd_pacienti.png" width='25px'>
-                  <span class="tooltiptext">add</span>
-              </button>
+              <form method="post">
+                <button name='addDoctor' id="search" style="margin-left: auto; margin-right: auto;" class="tooltip">
+                    <img src="../assets/images/fd_pacienti.png" width='25px'>
+                    <span class="tooltiptext">Add new doctor</span>
+                </button>
+              </form>
             </div>
 
             <form method='post'>

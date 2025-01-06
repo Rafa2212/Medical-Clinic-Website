@@ -187,3 +187,8 @@ input {
     .input{
         padding: 20px 60px 20px 60px;
     }
+    textarea.input {
+        resize: vertical;
+        min-height: 100px;
+        font-family: inherit;
+    }
