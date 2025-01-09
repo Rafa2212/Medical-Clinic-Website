@@ -4,7 +4,7 @@
             session_start();
             $user_data = check_login($con);
 
-            $doctor_id = $_SESSION['doctor_id'];
+            $doctor_id = $_SESSION['doctor_id'] ?? 0;
             if($doctor_id != 0)
             {
                 $sql = "SELECT 
@@ -132,6 +132,9 @@
                 </li>
                 <li>
                     <button class="navbar" onclick="document.location='signin.php'">Log out</button>
+                </li>
+                <li>
+                    <button id="navbar-user" class="navbar" onclick="return;"><?php echo htmlspecialchars($user_data['username'] ?? 'User'); ?></button>
                 </li>
             </ul>
             <form method='post'>

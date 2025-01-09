@@ -55,6 +55,17 @@ li{
   width: 50px;
   border: 0;
 }
+#navbar-user{
+  margin-left: 10px;
+  transition: none;
+  text-transform: none;
+}
+#navbar-user:hover{
+  background-color: #fff;
+  color: #000;
+  box-shadow: none;
+  transform: none;
+}
 .navbar {
   flex-wrap: wrap;
     margin-top: 5px;
@@ -450,4 +461,12 @@ tbody td {
 
 .add-form {
     display: inline-block;
+}
+
+.user-info {
+    float: right;
+    padding: 15px 20px;
+    color: #2C363E;
+    font-weight: 500;
+    margin-right: 20px;
 }

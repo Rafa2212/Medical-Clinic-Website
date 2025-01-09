@@ -28,6 +28,9 @@
                 <li>
                     <button class="navbar" onclick="document.location='signin.php'">Log out</button>
                 </li>
+                <li>
+                    <button id="navbar-user" class="navbar" onclick="return;"><?php echo htmlspecialchars($user_data['username'] ?? 'User'); ?></button>
+                </li>
             </ul>
         <div class="content">
             <div class="about">

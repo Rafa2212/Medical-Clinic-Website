@@ -65,15 +65,16 @@ session_start();
                     <button class="navbar" onclick="document.location='main.php'">Home</button>
                 </li>
                 <li>
-                  <form method = 'post'>
-                    <button name='nav' class="navbar">Patients</button>
-                    </form>
+                    <button class="navbar" onclick="document.location='patients.php'">Patients</button>
                 </li>
                 <li>
                     <button class="navbar" onclick="document.location='about.php'">About</button>
                 </li>
                 <li>
                     <button class="navbar" onclick="document.location='logout.php'">Log out</button>
+                </li>
+                <li>
+                    <button id="navbar-user" class="navbar" onclick="return;"><?php echo htmlspecialchars($user_data['username'] ?? 'User'); ?></button>
                 </li>
             </ul>
             
