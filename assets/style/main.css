@@ -59,6 +59,7 @@ li{
   margin-left: 10px;
   transition: none;
   text-transform: none;
+  cursor: default;
 }
 #navbar-user:hover{
   background-color: #fff;
